@@ -1,8 +1,13 @@
-const DeckModel = require('../models/Deck');
+const DeckModel = require('../models/deck');
 
 const getDeck = async () => {
   const deck = await DeckModel.getDeck();
   return deck;
+};
+
+const getCardsBySearch = async (name, rare, trunfo) => {
+  const cardsFound = await DeckModel.getCardsBySearch(name, rare, trunfo);
+  return cardsFound;
 };
 
 const insertCard = async (card) => {
@@ -17,4 +22,5 @@ module.exports = {
   getDeck,
   insertCard,
   removeCard,
+  getCardsBySearch,
 };

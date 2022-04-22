@@ -14,6 +14,17 @@ const getDeck = async () => {
   }
 };
 
+const getCardsBySearch = async (name, rare, trunfo) => {
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/deck/search?name=${name}&rare=${rare}&trunfo=${trunfo}`
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const insertCard = async (card) => {
   try {
     await axios.post(`${BASE_URL}/card`, { card });
@@ -24,7 +35,7 @@ const insertCard = async (card) => {
 
 const removeCard = async (cardId) => {
   try {
-    await axios.delete(`${BASE_URL}/card`, { data: { cardId } });
+    await axios.delete(`${BASE_URL}/card/${cardId}`);
   } catch (error) {
     console.error(error);
   }
@@ -34,4 +45,5 @@ export {
   getDeck,
   insertCard,
   removeCard,
+  getCardsBySearch,
 };

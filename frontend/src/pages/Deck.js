@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useId } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Card } from '../components';
+import { Card, Filters } from '../components';
 import { DeckContext } from '../context';
 import { getDeck } from '../services/deckAPI';
 
@@ -21,45 +21,7 @@ const Deck = () => {
           <Link to="/">Home</Link>
         </nav>
       </header>
-      {/* <section>
-        <label htmlFor="textFilter">
-          Nome da carta
-          <input
-            name="textFilter"
-            type="text"
-            value={ textFilter }
-            disabled={ trunfoFilter }
-            onChange={ handleNameFilter }
-            data-testid="name-filter"
-          />
-        </label>
-        <label htmlFor="rarityFilter">
-          Raridade
-          <select
-            name="rarityFilter"
-            type="text"
-            value={ rarityFilter }
-            disabled={ trunfoFilter }
-            onChange={ handleRarityFilter }
-            data-testid="rare-filter"
-          >
-            <option>todas</option>
-            <option>normal</option>
-            <option>raro</option>
-            <option>muito raro</option>
-          </select>
-        </label>
-        <label htmlFor="trunfoFilter">
-          Super Trunfo
-          <input
-            name="trunfoFilter"
-            type="checkbox"
-            value={ trunfoFilter }
-            onChange={ handleTrunfoFilter }
-            data-testid="trunfo-filter"
-            />
-        </label>
-      </section> */}
+      <Filters />
       <section>
         {
           deck.map((card, index) => (

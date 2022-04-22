@@ -6,16 +6,14 @@ const getDeck = async () => {
   return deck;
 };
 
+const getCardsBySearch = async (name, rare, trunfo) => {
+  const query = ''; /* Insira sua query */
+  const [cardsFound] = await db.query(query, [`%${name}%`, `${rare}%`, JSON.parse(trunfo)]);
+  return cardsFound;
+};
+
 const insertCard = async (card) => {
-  const {
-    name,
-    description,
-    attr1,
-    attr2,
-    attr3,
-    image,
-    rare,
-    trunfo } = card;
+  const { name, description, attr1, attr2, attr3, image, rare, trunfo } = card;
 
   const query = ''; /* Insira sua query */
 
@@ -34,4 +32,5 @@ module.exports = {
   getDeck,
   insertCard,
   removeCard,
+  getCardsBySearch,
 };
