@@ -1,5 +1,13 @@
 import React, { useContext, useState } from 'react';
 
+import {
+  TextInput,
+  NativeSelect,
+  Checkbox,
+  Button,
+  Container,
+  Group } from '@mantine/core';
+
 import { DeckContext } from '../context';
 import { getDeck, getCardsBySearch } from '../services/deckAPI';
 
@@ -10,8 +18,7 @@ const Filters = () => {
 
   const { setDeck } = useContext(DeckContext);
 
-  const handleFiltersSubmit = (event) => {
-    event.preventDefault();
+  const handleFilters = () => {
     (async () => setDeck(await getCardsBySearch(name, rare, trunfo)))();
   };
 
@@ -24,51 +31,58 @@ const Filters = () => {
   };
 
   return (
-    <form onSubmit={ handleFiltersSubmit }>
-      <label htmlFor="nameFilter">
-        Nome da carta
-        <input
-          id="nameFilter"
-          type="text"
+    <Container style={ { display: "flex", flexDirection: "column", gap: "20px" } }>
+      <Group position="center">
+        <TextInput
+          placeholder="Search by card name"
+          label="Name"
+          radius="md"
+          size="md"
           value={ name }
-          disabled={ trunfo }
           onChange={ ({ target: { value } }) => setName(value) }
         />
-      </label>
-      <label htmlFor="rareFilter">
-        Raridade
-        <select
-          id="rareFilter"
-          type="text"
+        <NativeSelect
+          data={[{ value: '', label: 'Todas' }, 'Normal', 'Raro', 'Muito raro']}
+          label="Rare"
+          radius="md"
+          size="md"
           value={ rare }
-          disabled={ trunfo }
           onChange={ ({ target: { value } }) => setRare(value) }
-        >
-          <option value="" >todas</option>
-          <option>normal</option>
-          <option>raro</option>
-          <option>muito raro</option>
-        </select>
-      </label>
-      <label htmlFor="trunfoFilter">
-        Super Trunfo
-        <input
-          id="trunfoFilter"
-          type="checkbox"
-          value={ trunfo }
+        />
+      </Group>
+
+      <Group position="center">
+        <Checkbox
+          label="Super Tryunfo"
+          radius="md"
+          size="md"
+          checked={ trunfo }
           onChange={ ({ target: { checked } }) => setTrunfo(checked) }
         />
-      </label>
-      <button type="submit">
-        Filter
-      </button>
-      <button
-        type="button"
-        onClick={ resetFilters }
-      >
-        Reset Filters
-      </button>
-    </form>
+      </Group>
+
+      <Group position="center">
+        <Button
+          variant="outline"
+          radius="md"
+          size="sm"
+          uppercase
+          onClick={ handleFilters }
+        >
+          Filter
+        </Button>
+
+        <Button
+          variant="outline"
+          radius="md"
+          size="sm"
+          uppercase
+          onClick={ resetFilters }
+        >
+          Reset Filters
+        </Button>
+      </Group>
+    </Container>
   );
 };
 

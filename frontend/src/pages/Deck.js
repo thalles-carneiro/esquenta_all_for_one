@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useId } from 'react';
-import { Link } from 'react-router-dom';
 
-import { Card, Filters } from '../components';
+import { PlayingCard, Filters, TryunfoHeader } from '../components';
 import { DeckContext } from '../context';
 import { getDeck } from '../services/deckAPI';
 
@@ -15,31 +14,29 @@ const Deck = () => {
 
   return (
     <div>
-      <header>
-        <h3>Todas as cartas</h3>
-        <nav>
-          <Link to="/">Home</Link>
-        </nav>
-      </header>
+      <TryunfoHeader />
       <Filters />
       <section>
-        {
-          deck.map((card, index) => (
-            <Card
-              key={ idInDeckPage + index }
-              id={ card.id }
-              name={ card.name }
-              description={ card.description }
-              attr1={ card.attr1 }
-              attr2={ card.attr2 }
-              attr3={ card.attr3 }
-              image={ card.image }
-              rare={ card.rare }
-              trunfo={ card.trunfo }
-              btn
-            />
-          ))
-        }
+        <h2 style={ { textAlign: "center", margin: "30px" } }>Todas as cartas</h2>
+        <div style={ { display: "flex", flexWrap: "wrap" } }>
+          {
+            deck.map((card, index) => (
+              <PlayingCard
+                key={ idInDeckPage + index }
+                id={ card.id }
+                name={ card.name }
+                description={ card.description }
+                attr1={ card.attr1 }
+                attr2={ card.attr2 }
+                attr3={ card.attr3 }
+                image={ card.image }
+                rare={ card.rare }
+                trunfo={ card.trunfo }
+                btn
+              />
+            ))
+          }
+        </div>
       </section>
     </div>
   );

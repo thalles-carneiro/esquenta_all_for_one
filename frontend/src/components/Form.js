@@ -1,6 +1,15 @@
 import React, { useContext } from 'react';
 
-import Input from './Input';
+import {
+  TextInput,
+  Textarea,
+  NativeSelect,
+  Checkbox,
+  Button,
+  Text,
+  Container,
+  Group } from '@mantine/core';
+
 import { insertCard } from '../services/deckAPI';
 import { CardContext, DeckContext } from '../context';
 import { validateInputs, validateSuperTrunfo } from '../helpers';
@@ -8,16 +17,6 @@ import { validateInputs, validateSuperTrunfo } from '../helpers';
 const Form = () => {
   const { card, onInputChange, resetCard } = useContext(CardContext);
   const { deck } = useContext(DeckContext);
-
-  const {
-    name,
-    description,
-    attr1,
-    attr2,
-    attr3,
-    image,
-    rare,
-    trunfo } = card;
 
   const isSaveButtonDisabled = validateInputs(card);
 
@@ -29,81 +28,119 @@ const Form = () => {
   };
 
   return (
-    <form>
-      <Input
-        label="Nome"
+    <Container style={ { display: "flex", flexDirection: "column", gap: "20px", width: "60%" } }>
+      <TextInput
+        placeholder="Insert card name"
         name="name"
-        value={ name }
-        callback={ onInputChange }
+        label="Name"
+        radius="md"
+        size="md"
+        value={ card.name }
+        onChange={ onInputChange }
+        required
       />
-      <label htmlFor="description">
-        Descrição
-        <textarea
-          name="description"
-          value={ description }
+      <Textarea
+        placeholder="Insert card description"
+        name="description"
+        label="Description"
+        radius="md"
+        size="md"
+        value={ card.description }
+        onChange={ onInputChange }
+        required
+      />
+      <Group position="apart">
+        <TextInput
+          placeholder="Insert card attr1"
+          name="attr1"
+          label="Attr1"
+          radius="md"
+          size="md"
+          type="number"
+          min={0}
+          max={90}
+          value={ card.attr1 }
           onChange={ onInputChange }
+          required
         />
-      </label>
-      <Input
-        label="Attr01"
-        name="attr1"
-        type="number"
-        value={ attr1 }
-        callback={ onInputChange }
-      />
-      <Input
-        label="Attr02"
-        name="attr2"
-        type="number"
-        value={ attr2 }
-        callback={ onInputChange }
-      />
-      <Input
-        label="Attr03"
-        name="attr3"
-        type="number"
-        value={ attr3 }
-        callback={ onInputChange }
-      />
-      <Input
-        label="Imagem"
-        name="image"
-        value={ image }
-        callback={ onInputChange }
-      />
-      <label htmlFor="rare">
-        <select
-          name="rare"
-          value={ rare }
+        <TextInput
+          placeholder="Insert card attr2"
+          name="attr2"
+          label="Attr2"
+          radius="md"
+          size="md"
+          type="number"
+          min={0}
+          max={90}
+          value={ card.attr2 }
           onChange={ onInputChange }
-        >
-          <option>normal</option>
-          <option>raro</option>
-          <option>muito raro</option>
-        </select>
-      </label>
-      {
-        hasTrunfo
-          ? (<span>Você já tem um Super Trunfo em seu baralho</span>)
-          : (
-            <label htmlFor="trunfo">
-              Super Trybe Trunfo
-              <input
+          required
+        />
+        <TextInput
+          placeholder="Insert card attr3"
+          name="attr3"
+          label="Attr3"
+          radius="md"
+          size="md"
+          type="number"
+          min={0}
+          max={90}
+          value={ card.attr3 }
+          onChange={ onInputChange }
+          required
+        />
+      </Group>
+
+      <TextInput
+        placeholder="Insert card image link"
+        name="image"
+        label="Image"
+        radius="md"
+        size="md"
+        value={ card.image }
+        onChange={ onInputChange }
+        required
+      />
+
+      <NativeSelect
+        data={['Normal', 'Raro', 'Muito raro']}
+        placeholder="Insert card rarity"
+        name="rare"
+        label="Rare"
+        radius="md"
+        size="md"
+        value={ card.rare }
+        onChange={ onInputChange }
+        required
+      />
+
+      <Group position="center">
+        {
+          hasTrunfo
+            ? (<Text>Você já tem um Super Tryunfo em seu baralho</Text>)
+            : (
+              <Checkbox
+                label="Super Tryunfo"
                 name="trunfo"
-                type="checkbox"
-                checked={ trunfo }
+                radius="md"
+                size="md"
+                checked={ card.trunfo }
                 onChange={ onInputChange }
               />
-            </label>
-          )
-      }
-      <input
-        type="button"
-        value="Salvar"
-        disabled={ isSaveButtonDisabled }
-        onClick={ onSaveButtonClick }
-      />
-    </form>
+            )
+        }
+        <Button
+          variant="outline"
+          radius="md"
+          size="md"
+          uppercase
+          disabled={ isSaveButtonDisabled }
+          onClick={ onSaveButtonClick }
+        >
+          Save
+        </Button>
+      </Group>
+    </Container>
   );
 };
 

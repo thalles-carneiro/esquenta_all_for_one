@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS `deck` (
   `attr2` VARCHAR(3) NOT NULL,
   `attr3` VARCHAR(3) NOT NULL,
   `image` VARCHAR(150) NOT NULL,
-  `rare` ENUM('normal', 'raro', 'muito raro') NOT NULL,
+  `rare` ENUM('Normal', 'Raro', 'Muito raro') NOT NULL,
   `trunfo` BOOL NOT NULL
 );

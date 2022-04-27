@@ -8,7 +8,7 @@ WORKDIR /home/node/app
 
 COPY --chown=node:node package*.json ./
 
-RUN npm install
+RUN npm install -s
 
 COPY --chown=node:node ./ ./
 
